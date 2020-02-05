@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://EventService.UD.concerto.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://Notify.EventService.UD.concerto.com" xmlns:tns2="http://EventServiceFault.EventService.UD.concerto.com" xmlns:impl="http://EventService.UD.concerto.com" targetNamespace="http://EventService.UD.concerto.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Notify.EventService.UD.concerto.com">
+      <xsd:import namespace="http://xml.apache.org/xml-soap" />
+      <xsd:import namespace="http://EventServiceFault.EventService.UD.concerto.com" />
+      <xsd:import namespace="http://EventService.UD.concerto.com" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="AgentEvent">
+        <xsd:sequence>
+          <xsd:element name="agentId" nillable="true" type="xsd:string" />
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="eventDescription" nillable="true" type="xsd:string" />
+          <xsd:element name="eventId" type="xsd:int" />
+          <xsd:element name="eventTimestamp" type="xsd:long" />
+          <xsd:element name="payload" nillable="true" type="xsd:anyType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AlertEvent">
+        <xsd:sequence>
+          <xsd:element name="payload" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDDialing">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallReleasedXferred">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotifyCallDataDef">
+        <xsd:sequence>
+          <xsd:element name="calldatadefid" type="xsd:int" />
+          <xsd:element name="name" nillable="true" type="xsd:string" />
+          <xsd:element name="tabledefid" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotifyCallDataDefFields">
+        <xsd:sequence>
+          <xsd:element name="calldatadefid" type="xsd:int" />
+          <xsd:element name="fieldorder" type="xsd:int" />
+          <xsd:element name="fieldtype" nillable="true" type="xsd:string" />
+          <xsd:element name="label" nillable="true" type="xsd:string" />
+          <xsd:element name="mediatypeid" type="xsd:int" />
+          <xsd:element name="reservedword" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDUpdateCallDataDef">
+        <xsd:sequence>
+          <xsd:element name="callDataDef" nillable="true" type="tns1:UDNotifyCallDataDef" />
+          <xsd:element name="callDataDefFields" nillable="true" type="impl:ArrayOf_tns1_UDNotifyCallDataDefFields" />
+          <xsd:element name="callDataDefId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallInfoOther">
+        <xsd:sequence>
+          <xsd:element name="callCategory" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="callType" type="xsd:int" />
+          <xsd:element name="eventCode" type="xsd:int" />
+          <xsd:element name="originalServiceID" type="xsd:int" />
+          <xsd:element name="serviceID" type="xsd:int" />
+          <xsd:element name="timeZoneID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallInfoScreen">
+        <xsd:sequence>
+          <xsd:element name="ani" nillable="true" type="xsd:string" />
+          <xsd:element name="callerID" nillable="true" type="xsd:string" />
+          <xsd:element name="dnis" nillable="true" type="xsd:string" />
+          <xsd:element name="firstName" nillable="true" type="xsd:string" />
+          <xsd:element name="lastName" nillable="true" type="xsd:string" />
+          <xsd:element name="phoneNumber" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDHeld">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDActivateCall">
+        <xsd:sequence>
+          <xsd:element name="callID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotifyDispositions">
+        <xsd:sequence>
+          <xsd:element name="callbackf" type="xsd:int" />
+          <xsd:element name="code" nillable="true" type="xsd:string" />
+          <xsd:element name="description" nillable="true" type="xsd:string" />
+          <xsd:element name="dispid" type="xsd:int" />
+          <xsd:element name="dispplanid" type="xsd:int" />
+          <xsd:element name="exclusionf" type="xsd:int" />
+          <xsd:element name="salesf" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotifyService">
+        <xsd:sequence>
+          <xsd:element name="dispplanid" type="xsd:int" />
+          <xsd:element name="outgoingmask" type="xsd:int" />
+          <xsd:element name="servicec" nillable="true" type="xsd:string" />
+          <xsd:element name="serviceid" type="xsd:int" />
+          <xsd:element name="servicetypeid" type="xsd:int" />
+          <xsd:element name="timezoneid" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotifyServiceSettings">
+        <xsd:sequence>
+          <xsd:element name="allowkb" type="xsd:int" />
+          <xsd:element name="allowphonechangeinpreview" type="xsd:int" />
+          <xsd:element name="appdesc" nillable="true" type="xsd:string" />
+          <xsd:element name="btnblindxferf" type="xsd:int" />
+          <xsd:element name="btncallbackf" type="xsd:int" />
+          <xsd:element name="btnconsultf" type="xsd:int" />
+          <xsd:element name="btndialf" type="xsd:int" />
+          <xsd:element name="btnhangupf" type="xsd:int" />
+          <xsd:element name="btnholdf" type="xsd:int" />
+          <xsd:element name="btnnextcall" type="xsd:int" />
+          <xsd:element name="btnplayf" type="xsd:int" />
+          <xsd:element name="btnrecordf" type="xsd:int" />
+          <xsd:element name="btnthreecusthangupf" type="xsd:int" />
+          <xsd:element name="btnthreewayf" type="xsd:int" />
+          <xsd:element name="btnxferf" type="xsd:int" />
+          <xsd:element name="callbackdays" type="xsd:int" />
+          <xsd:element name="calldatadefid" type="xsd:int" />
+          <xsd:element name="calldatadialogduration" type="xsd:int" />
+          <xsd:element name="canaddattachments" type="xsd:int" />
+          <xsd:element name="cbselfcallbackflag" type="xsd:int" />
+          <xsd:element name="cbservicecallbackflag" type="xsd:int" />
+          <xsd:element name="chatblindtransferallowed" type="xsd:int" />
+          <xsd:element name="chatdisconnectallowed" type="xsd:int" />
+          <xsd:element name="chatrecordallowed" type="xsd:int" />
+          <xsd:element name="chattransferallowed" type="xsd:int" />
+          <xsd:element name="displaycallbacktimewarningf" type="xsd:int" />
+          <xsd:element name="displayservicerecordingf" type="xsd:int" />
+          <xsd:element name="displayservicesf" type="xsd:int" />
+          <xsd:element name="hidePhoneOnSpeedDial" type="xsd:int" />
+          <xsd:element name="lyricallscriptid" type="xsd:int" />
+          <xsd:element name="lyricallscriptname" nillable="true" type="xsd:string" />
+          <xsd:element name="mailclientid" type="xsd:int" />
+          <xsd:element name="maxWrapTime" type="xsd:int" />
+          <xsd:element name="minWrapTime" type="xsd:int" />
+          <xsd:element name="pbxaodserviceid" type="xsd:int" />
+          <xsd:element name="previewtimeoutinsecs" type="xsd:int" />
+          <xsd:element name="replayAgentRecording" type="xsd:int" />
+          <xsd:element name="replayAgentVM" type="xsd:int" />
+          <xsd:element name="replayServiceVM" type="xsd:int" />
+          <xsd:element name="reqdispositionf" type="xsd:int" />
+          <xsd:element name="requireservicef" type="xsd:int" />
+          <xsd:element name="reqwrapf" type="xsd:int" />
+          <xsd:element name="scriptclassname" nillable="true" type="xsd:string" />
+          <xsd:element name="scriptcommandline" nillable="true" type="xsd:string" />
+          <xsd:element name="scriptscreenpopmethod" nillable="true" type="xsd:string" />
+          <xsd:element name="scriptscreenpopnotifytype" type="xsd:int" />
+          <xsd:element name="serviceid" type="xsd:int" />
+          <xsd:element name="servicetypeid" type="xsd:int" />
+          <xsd:element name="showcalldatadialogf" type="xsd:int" />
+          <xsd:element name="timedpreviewflag" type="xsd:int" />
+          <xsd:element name="userid" nillable="true" type="xsd:string" />
+          <xsd:element name="warmtransfer" type="xsd:int" />
+          <xsd:element name="webCollabAgentLedTypeId" type="xsd:int" />
+          <xsd:element name="wrapExceedAction" type="xsd:int" />
+          <xsd:element name="wrapwarningdelay" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDUpdateService">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callDataDefFields" nillable="true" type="impl:ArrayOf_tns1_UDNotifyCallDataDefFields" />
+          <xsd:element name="dispositions" nillable="true" type="impl:ArrayOf_tns1_UDNotifyDispositions" />
+          <xsd:element name="serviceID" type="xsd:int" />
+          <xsd:element name="serviceInfo" nillable="true" type="tns1:UDNotifyService" />
+          <xsd:element name="serviceSettings" nillable="true" type="tns1:UDNotifyServiceSettings" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDRecordState">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="autoRecording" type="xsd:int" />
+          <xsd:element name="fileName" nillable="true" type="xsd:string" />
+          <xsd:element name="mediaType" type="xsd:int" />
+          <xsd:element name="recordingIndex" type="xsd:int" />
+          <xsd:element name="recordingRate" type="xsd:int" />
+          <xsd:element name="recordingSeq" type="xsd:int" />
+          <xsd:element name="recordingState" type="xsd:int" />
+          <xsd:element name="recordingStoreId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDMonitorState">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="ipAddress" nillable="true" type="xsd:string" />
+          <xsd:element name="monitoringSeq" type="xsd:int" />
+          <xsd:element name="monitoringState" type="xsd:int" />
+          <xsd:element name="portNum" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDError">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="currentLicenseCount" type="xsd:int" />
+          <xsd:element name="eventCode" type="xsd:int" />
+          <xsd:element name="failCode" type="xsd:int" />
+          <xsd:element name="failReason" nillable="true" type="xsd:string" />
+          <xsd:element name="licensedCount" type="xsd:int" />
+          <xsd:element name="localizedFailReason" nillable="true" type="xsd:string" />
+          <xsd:element name="mbox" type="xsd:int" />
+          <xsd:element name="serviceId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDUpdateDisposition">
+        <xsd:sequence>
+          <xsd:element name="dispID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDLoggingIn">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDRemoveService">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="serviceID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDLoginConf">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="agentLoginName" nillable="true" type="xsd:string" />
+          <xsd:element name="agentType" type="xsd:int" />
+          <xsd:element name="ntSwitchId" type="xsd:int" />
+          <xsd:element name="referenceID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallClear">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallInfoAod">
+        <xsd:sequence>
+          <xsd:element name="callTableRecordNum" type="xsd:int" />
+          <xsd:element name="storeManagerId" type="xsd:int" />
+          <xsd:element name="tableName" nillable="true" type="xsd:string" />
+          <xsd:element name="targetManagerId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallInfoCallback">
+        <xsd:sequence>
+          <xsd:element name="callBackFlag" type="xsd:int" />
+          <xsd:element name="callbackMemo" nillable="true" type="xsd:string" />
+          <xsd:element name="dialModeCode" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallInfoEmail">
+        <xsd:sequence>
+          <xsd:element name="forwardToMBox" nillable="true" type="xsd:string" />
+          <xsd:element name="fromAddress" nillable="true" type="xsd:string" />
+          <xsd:element name="mailQueId" type="xsd:int" />
+          <xsd:element name="messageId" type="xsd:int" />
+          <xsd:element name="senderCC" nillable="true" type="xsd:string" />
+          <xsd:element name="senderDateTime" nillable="true" type="xsd:string" />
+          <xsd:element name="senderName" nillable="true" type="xsd:string" />
+          <xsd:element name="senderTo" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallInfoUserDefinedItem">
+        <xsd:sequence>
+          <xsd:element name="isMasked" nillable="true" type="xsd:boolean" />
+          <xsd:element name="key" nillable="true" type="xsd:string" />
+          <xsd:element name="value" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallInfoUserDefined">
+        <xsd:sequence>
+          <xsd:element name="UDCallInfoUserDefinedItem" nillable="true" type="tns1:UDCallInfoUserDefinedItem" />
+          <xsd:element name="userDefinedItems" nillable="true" type="impl:ArrayOf_tns1_UDCallInfoUserDefinedItem" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallInfo">
+        <xsd:sequence>
+          <xsd:element name="aodData" nillable="true" type="tns1:UDCallInfoAod" />
+          <xsd:element name="callbackData" nillable="true" type="tns1:UDCallInfoCallback" />
+          <xsd:element name="emailData" nillable="true" type="tns1:UDCallInfoEmail" />
+          <xsd:element name="otherData" nillable="true" type="tns1:UDCallInfoOther" />
+          <xsd:element name="screenData" nillable="true" type="tns1:UDCallInfoScreen" />
+          <xsd:element name="userDefinedData" nillable="true" type="tns1:UDCallInfoUserDefined" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDScreenPop">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="callInfo" nillable="true" type="tns1:UDCallInfo" />
+          <xsd:element name="originalServiceName" nillable="true" type="xsd:string" />
+          <xsd:element name="pbxaodserviceid" type="xsd:int" />
+          <xsd:element name="playAudioAlert" type="xsd:boolean" />
+          <xsd:element name="preemptive" type="xsd:int" />
+          <xsd:element name="requiredRejectReason" type="xsd:boolean" />
+          <xsd:element name="requiredResponse" type="xsd:boolean" />
+          <xsd:element name="serviceName" nillable="true" type="xsd:string" />
+          <xsd:element name="statusReason" type="xsd:int" />
+          <xsd:element name="switchCallID" type="xsd:int" />
+          <xsd:element name="timeoutForAcceptCall" type="xsd:int" />
+          <xsd:element name="timeoutForAudioAlert" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDLogin">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="enableUCF" type="xsd:boolean" />
+          <xsd:element name="ntSwitchId" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+          <xsd:element name="systemFeature" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotifyDispositionPlan">
+        <xsd:sequence>
+          <xsd:element name="desc" nillable="true" type="xsd:string" />
+          <xsd:element name="dispid" type="xsd:int" />
+          <xsd:element name="dispplanid" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNewService">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callDataDef" nillable="true" type="tns1:UDNotifyCallDataDef" />
+          <xsd:element name="callDataDefFields" nillable="true" type="impl:ArrayOf_tns1_UDNotifyCallDataDefFields" />
+          <xsd:element name="dispositionPlan" nillable="true" type="tns1:UDNotifyDispositionPlan" />
+          <xsd:element name="dispositions" nillable="true" type="impl:ArrayOf_tns1_UDNotifyDispositions" />
+          <xsd:element name="serviceID" type="xsd:int" />
+          <xsd:element name="serviceInfo" nillable="true" type="tns1:UDNotifyService" />
+          <xsd:element name="serviceSettings" nillable="true" type="tns1:UDNotifyServiceSettings" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallXferred">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="consultCallID" type="xsd:int" />
+          <xsd:element name="newCallID" type="xsd:int" />
+          <xsd:element name="originalAgentIndex" type="xsd:int" />
+          <xsd:element name="originalCallID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotReady">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+          <xsd:element name="toParkState" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCallReRouted">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDActive">
+        <xsd:sequence>
+          <xsd:element name="IPAddress" nillable="true" type="xsd:string" />
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="mediaType" type="xsd:int" />
+          <xsd:element name="portNumber" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDSwitch">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="switchId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDConsult">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="consultCallID" type="xsd:int" />
+          <xsd:element name="consultedAgentIndex" type="xsd:int" />
+          <xsd:element name="originalCallID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDExternalRoute">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="externalRequestType" type="xsd:int" />
+          <xsd:element name="externalRouteId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDLogout">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDIdle">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDWrap">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDAgentIndex">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDConference">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="conferenceAgentIndex" type="xsd:int" />
+          <xsd:element name="conferenceCallID" type="xsd:int" />
+          <xsd:element name="consultCallID" type="xsd:int" />
+          <xsd:element name="originalCallID" type="xsd:int" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDPreview">
+        <xsd:sequence>
+          <xsd:element name="callID" type="xsd:int" />
+          <xsd:element name="callInfo" nillable="true" type="tns1:UDCallInfo" />
+          <xsd:element name="originalServiceName" nillable="true" type="xsd:string" />
+          <xsd:element name="preemptive" type="xsd:int" />
+          <xsd:element name="serviceName" nillable="true" type="xsd:string" />
+          <xsd:element name="statusReason" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDSystemWait">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="switchID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDUpdateDispositionPlan">
+        <xsd:sequence>
+          <xsd:element name="planID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDRealTimePort">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="alawMuLaw" type="xsd:int" />
+          <xsd:element name="codecId" type="xsd:int" />
+          <xsd:element name="echoCancel" type="xsd:int" />
+          <xsd:element name="ipAddress" nillable="true" type="xsd:string" />
+          <xsd:element name="ipPrecedence" type="xsd:int" />
+          <xsd:element name="jitterBufMinDelay" type="xsd:int" />
+          <xsd:element name="payloadBytes" type="xsd:int" />
+          <xsd:element name="rfu1" type="xsd:int" />
+          <xsd:element name="rfu2" type="xsd:int" />
+          <xsd:element name="rfu3" type="xsd:int" />
+          <xsd:element name="rfu4" type="xsd:int" />
+          <xsd:element name="rfu5" type="xsd:int" />
+          <xsd:element name="rtpPort" type="xsd:int" />
+          <xsd:element name="rtpRedundancy" type="xsd:int" />
+          <xsd:element name="silenceCompression" type="xsd:int" />
+          <xsd:element name="typeOfService" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDPasscode">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="code" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDBadPassCode">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="codeShouldBe" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDDirectorAck">
+        <xsd:sequence>
+          <xsd:element name="ackData" nillable="true" type="xsd:string" />
+          <xsd:element name="directorId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDScreenCapture">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="agentStation" nillable="true" type="xsd:string" />
+          <xsd:element name="callId" type="xsd:int" />
+          <xsd:element name="funcCode" type="xsd:int" />
+          <xsd:element name="key" nillable="true" type="xsd:string" />
+          <xsd:element name="monitorAgentIp" nillable="true" type="xsd:string" />
+          <xsd:element name="seqNum" type="xsd:int" />
+          <xsd:element name="serverId" type="xsd:int" />
+          <xsd:element name="serviceId" type="xsd:int" />
+          <xsd:element name="siteId" type="xsd:int" />
+          <xsd:element name="status" type="xsd:int" />
+          <xsd:element name="supervisorIndex" type="xsd:int" />
+          <xsd:element name="supervisorStation" nillable="true" type="xsd:string" />
+          <xsd:element name="tenantId" type="xsd:int" />
+          <xsd:element name="url" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDAgentStats">
+        <xsd:sequence>
+          <xsd:element name="CTICalls" type="xsd:int" />
+          <xsd:element name="EMailCalls" type="xsd:int" />
+          <xsd:element name="IMCalls" type="xsd:int" />
+          <xsd:element name="acdCalls" type="xsd:int" />
+          <xsd:element name="activeSeconds" type="xsd:int" />
+          <xsd:element name="agdCalls" type="xsd:int" />
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="aodCalls" type="xsd:int" />
+          <xsd:element name="chatCalls" type="xsd:int" />
+          <xsd:element name="didCalls" type="xsd:int" />
+          <xsd:element name="idleSeconds" type="xsd:int" />
+          <xsd:element name="loggedInSeconds" type="xsd:int" />
+          <xsd:element name="manualCalls" type="xsd:int" />
+          <xsd:element name="manualSeconds" type="xsd:int" />
+          <xsd:element name="notReadySeconds" type="xsd:int" />
+          <xsd:element name="numberOfCallbacks" type="xsd:int" />
+          <xsd:element name="numberOfRefusals" type="xsd:int" />
+          <xsd:element name="numberOfSuccesses" type="xsd:int" />
+          <xsd:element name="otherSeconds" type="xsd:int" />
+          <xsd:element name="parkSeconds" type="xsd:int" />
+          <xsd:element name="service" nillable="true" type="xsd:string" />
+          <xsd:element name="serviceId" type="xsd:int" />
+          <xsd:element name="station" nillable="true" type="xsd:string" />
+          <xsd:element name="statusSeconds" type="xsd:int" />
+          <xsd:element name="statusStartTimeMilitary" type="xsd:int" />
+          <xsd:element name="userId" nillable="true" type="xsd:string" />
+          <xsd:element name="wrapSeconds" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDAgentStatsCollection">
+        <xsd:sequence>
+          <xsd:element name="UDAgentStats" nillable="true" type="tns1:UDAgentStats" />
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="lstAgentStatistics" nillable="true" type="impl:ArrayOf_tns1_UDAgentStats" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDEMailServiceStatistics">
+        <xsd:sequence>
+          <xsd:element name="numberOfEmailsInPendingProcessQ" type="xsd:int" />
+          <xsd:element name="numberOfEmailsInReviewQ" type="xsd:int" />
+          <xsd:element name="queuId" type="xsd:int" />
+          <xsd:element name="queueName" nillable="true" type="xsd:string" />
+          <xsd:element name="serviceID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDEMailServiceStatisticsColl">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="lstEMailServiceStatistics" nillable="true" type="impl:ArrayOf_tns1_UDEMailServiceStatistics" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDEntity">
+        <xsd:sequence>
+          <xsd:element name="callId" type="xsd:int" />
+          <xsd:element name="entity" type="xsd:int" />
+          <xsd:element name="entityID" type="xsd:int" />
+          <xsd:element name="name" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDEntityList">
+        <xsd:sequence>
+          <xsd:element name="entities" nillable="true" type="impl:ArrayOf_xsd_anyType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDEntityPushUrl">
+        <xsd:sequence>
+          <xsd:element name="callId" type="xsd:int" />
+          <xsd:element name="entity" type="xsd:int" />
+          <xsd:element name="entityName" nillable="true" type="xsd:string" />
+          <xsd:element name="url" nillable="true" type="xsd:string" />
+          <xsd:element name="urlLength" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDEntitySendText">
+        <xsd:sequence>
+          <xsd:element name="callId" type="xsd:int" />
+          <xsd:element name="entity" type="xsd:int" />
+          <xsd:element name="entityName" nillable="true" type="xsd:string" />
+          <xsd:element name="text" nillable="true" type="xsd:string" />
+          <xsd:element name="textLength" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDCCDown">
+        <xsd:sequence>
+          <xsd:element name="timeout" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDDialRequest">
+        <xsd:sequence>
+          <xsd:element name="callId" type="xsd:int" />
+          <xsd:element name="phoneNumber" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotifyUrl">
+        <xsd:sequence>
+          <xsd:element name="name" nillable="true" type="xsd:string" />
+          <xsd:element name="url" nillable="true" type="xsd:string" />
+          <xsd:element name="urlid" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDAudioPathConnection">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="audioPath" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDForwardEmailAck">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callId" type="xsd:int" />
+          <xsd:element name="messageId" type="xsd:int" />
+          <xsd:element name="queueId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDReserved">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDWrapTimeout">
+        <xsd:sequence>
+          <xsd:element name="agentDispExpected" type="xsd:int" />
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDVoiceLock">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNotifyTimeZone">
+        <xsd:sequence>
+          <xsd:element name="DSTOff_GMT" type="xsd:int" />
+          <xsd:element name="DSTOff_Month" type="xsd:int" />
+          <xsd:element name="DSTOff_StartDay" type="xsd:int" />
+          <xsd:element name="DSTOn_DayofWeek" type="xsd:int" />
+          <xsd:element name="DSTOn_GMT" type="xsd:int" />
+          <xsd:element name="DSTOn_Month" type="xsd:int" />
+          <xsd:element name="DSTOn_StartDay" type="xsd:int" />
+          <xsd:element name="DST_Observed" type="xsd:int" />
+          <xsd:element name="GMT_Offset" type="xsd:int" />
+          <xsd:element name="identifier" nillable="true" type="xsd:string" />
+          <xsd:element name="timeZoneID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDNewTimeZone">
+        <xsd:sequence>
+          <xsd:element name="timeZone" nillable="true" type="tns1:UDNotifyTimeZone" />
+          <xsd:element name="timeZoneInfo" nillable="true" type="tns1:UDNotifyTimeZone" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDUpdateTimeZone">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="timeZoneID" type="xsd:int" />
+          <xsd:element name="timeZoneInfo" nillable="true" type="tns1:UDNotifyTimeZone" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDRemoveTimeZone">
+        <xsd:sequence>
+          <xsd:element name="timeZoneID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UDVoiceUnlock">
+        <xsd:sequence>
+          <xsd:element name="agentIndex" type="xsd:int" />
+          <xsd:element name="callID" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://EventServiceFault.EventService.UD.concerto.com">
+      <xsd:import namespace="http://Notify.EventService.UD.concerto.com" />
+      <xsd:import namespace="http://xml.apache.org/xml-soap" />
+      <xsd:import namespace="http://EventService.UD.concerto.com" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="EventServiceFault">
+        <xsd:sequence />
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://EventService.UD.concerto.com">
+      <xsd:import namespace="http://Notify.EventService.UD.concerto.com" />
+      <xsd:import namespace="http://xml.apache.org/xml-soap" />
+      <xsd:import namespace="http://EventServiceFault.EventService.UD.concerto.com" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ArrayOf_tns1_UDNotifyCallDataDefFields">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:UDNotifyCallDataDefFields[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_UDNotifyDispositions">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:UDNotifyDispositions[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_UDCallInfoUserDefinedItem">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:UDCallInfoUserDefinedItem[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_UDAgentStats">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:UDAgentStats[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_UDEMailServiceStatistics">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:UDEMailServiceStatistics[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_xsd_anyType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:anyType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xml.apache.org/xml-soap">
+      <xsd:import namespace="http://Notify.EventService.UD.concerto.com" />
+      <xsd:import namespace="http://EventServiceFault.EventService.UD.concerto.com" />
+      <xsd:import namespace="http://EventService.UD.concerto.com" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="Vector">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="xsd:anyType" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="registerAllAgentEventSubscriberRequest" />
+  <wsdl:message name="registerAllAgentEventSubscriberResponse">
+    <wsdl:part name="registerAllAgentEventSubscriberReturn" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="registerAgentEventSubscriberResponse">
+    <wsdl:part name="registerAgentEventSubscriberReturn" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getNextAgentEventResponse">
+    <wsdl:part name="getNextAgentEventReturn" type="tns1:AgentEvent" />
+  </wsdl:message>
+  <wsdl:message name="registerAlertEventSubscriberResponse">
+    <wsdl:part name="registerAlertEventSubscriberReturn" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="unregisterAgentEventSubscriberRequest">
+    <wsdl:part name="registrationId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="unregisterAlertEventSubscriberRequest">
+    <wsdl:part name="registrationId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getNextAgentEventRequest">
+    <wsdl:part name="registrationId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="unregisterAgentEventSubscriberResponse" />
+  <wsdl:message name="registerAgentEventSubscriberRequest">
+    <wsdl:part name="agentName" type="soapenc:string" />
+  </wsdl:message>
+  <wsdl:message name="registerAlertEventSubscriberRequest" />
+  <wsdl:message name="getNextAgentEventAckResponse">
+    <wsdl:part name="getNextAgentEventAckReturn" type="tns1:AgentEvent" />
+  </wsdl:message>
+  <wsdl:message name="getNextAlertEventResponse">
+    <wsdl:part name="getNextAlertEventReturn" type="tns1:AlertEvent" />
+  </wsdl:message>
+  <wsdl:message name="getNextAlertEventRequest">
+    <wsdl:part name="registrationId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getNextAgentEventAckRequest">
+    <wsdl:part name="registrationId" type="xsd:int" />
+    <wsdl:part name="sequenceNumber" type="xsd:long" />
+  </wsdl:message>
+  <wsdl:message name="EventServiceFault">
+    <wsdl:part name="fault" type="tns2:EventServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="unregisterAlertEventSubscriberResponse" />
+  <wsdl:portType name="EventService">
+    <wsdl:operation name="unregisterAgentEventSubscriber" parameterOrder="registrationId">
+      <wsdl:input name="unregisterAgentEventSubscriberRequest" message="impl:unregisterAgentEventSubscriberRequest" />
+      <wsdl:output name="unregisterAgentEventSubscriberResponse" message="impl:unregisterAgentEventSubscriberResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="registerAllAgentEventSubscriber">
+      <wsdl:input name="registerAllAgentEventSubscriberRequest" message="impl:registerAllAgentEventSubscriberRequest" />
+      <wsdl:output name="registerAllAgentEventSubscriberResponse" message="impl:registerAllAgentEventSubscriberResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getNextAgentEventAck" parameterOrder="registrationId sequenceNumber">
+      <wsdl:input name="getNextAgentEventAckRequest" message="impl:getNextAgentEventAckRequest" />
+      <wsdl:output name="getNextAgentEventAckResponse" message="impl:getNextAgentEventAckResponse" />
+      <wsdl:fault name="EventServiceFault" message="impl:EventServiceFault" />
+    </wsdl:operation>
+    <wsdl:operation name="getNextAgentEvent" parameterOrder="registrationId">
+      <wsdl:input name="getNextAgentEventRequest" message="impl:getNextAgentEventRequest" />
+      <wsdl:output name="getNextAgentEventResponse" message="impl:getNextAgentEventResponse" />
+      <wsdl:fault name="EventServiceFault" message="impl:EventServiceFault" />
+    </wsdl:operation>
+    <wsdl:operation name="unregisterAlertEventSubscriber" parameterOrder="registrationId">
+      <wsdl:input name="unregisterAlertEventSubscriberRequest" message="impl:unregisterAlertEventSubscriberRequest" />
+      <wsdl:output name="unregisterAlertEventSubscriberResponse" message="impl:unregisterAlertEventSubscriberResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="registerAlertEventSubscriber">
+      <wsdl:input name="registerAlertEventSubscriberRequest" message="impl:registerAlertEventSubscriberRequest" />
+      <wsdl:output name="registerAlertEventSubscriberResponse" message="impl:registerAlertEventSubscriberResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getNextAlertEvent" parameterOrder="registrationId">
+      <wsdl:input name="getNextAlertEventRequest" message="impl:getNextAlertEventRequest" />
+      <wsdl:output name="getNextAlertEventResponse" message="impl:getNextAlertEventResponse" />
+      <wsdl:fault name="EventServiceFault" message="impl:EventServiceFault" />
+    </wsdl:operation>
+    <wsdl:operation name="registerAgentEventSubscriber" parameterOrder="agentName">
+      <wsdl:input name="registerAgentEventSubscriberRequest" message="impl:registerAgentEventSubscriberRequest" />
+      <wsdl:output name="registerAgentEventSubscriberResponse" message="impl:registerAgentEventSubscriberResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EventServiceSoapBinding" type="impl:EventService">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="unregisterAgentEventSubscriber">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="unregisterAgentEventSubscriberRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="unregisterAgentEventSubscriberResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerAllAgentEventSubscriber">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="registerAllAgentEventSubscriberRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="registerAllAgentEventSubscriberResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNextAgentEventAck">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getNextAgentEventAckRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getNextAgentEventAckResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+      <wsdl:fault name="EventServiceFault">
+        <wsdlsoap:fault use="encoded" name="EventServiceFault" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getNextAgentEvent">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getNextAgentEventRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getNextAgentEventResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+      <wsdl:fault name="EventServiceFault">
+        <wsdlsoap:fault use="encoded" name="EventServiceFault" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="unregisterAlertEventSubscriber">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="unregisterAlertEventSubscriberRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="unregisterAlertEventSubscriberResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerAlertEventSubscriber">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="registerAlertEventSubscriberRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="registerAlertEventSubscriberResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNextAlertEvent">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getNextAlertEventRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getNextAlertEventResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+      <wsdl:fault name="EventServiceFault">
+        <wsdlsoap:fault use="encoded" name="EventServiceFault" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="registerAgentEventSubscriber">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="registerAgentEventSubscriberRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="registerAgentEventSubscriberResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EventService.UD.concerto.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EventServiceService">
+    <wsdl:port name="EventService" binding="impl:EventServiceSoapBinding">
+      <wsdlsoap:address location="http://10.13.1.208:8180/EventService/services/EventService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

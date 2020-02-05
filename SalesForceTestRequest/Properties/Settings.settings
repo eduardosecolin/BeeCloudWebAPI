@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SalesForceTestRequest.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SalesForceTestRequest_EPEventsWS_EventServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://10.13.1.208:8180/EventService/services/EventService</Value>
+    </Setting>
+    <Setting Name="SalesForceTestRequest_EPAgentWS_AgentWebServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://10.13.1.208:8180/ConcertoAgentPortal/services/ConcertoAgentPortal</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
