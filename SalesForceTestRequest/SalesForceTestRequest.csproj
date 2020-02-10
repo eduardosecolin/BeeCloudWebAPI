@@ -200,6 +200,7 @@
     <Compile Include="ServiceClass\CList.cs" />
     <Compile Include="ServiceClass\CPortal.cs" />
     <Compile Include="Utils\Log.cs" />
+    <Compile Include="Utils\Util.cs" />
     <Compile Include="Web References\EPAgentWS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

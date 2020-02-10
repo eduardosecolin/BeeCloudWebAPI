@@ -87,6 +87,7 @@ namespace SalesForceTestRequest.Controllers
                     case AgentStateId.asPREVIEW:
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].Call.CallId = obj.CurrentCall.CallID;
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].Call.Name = obj.CurrentCall.FirstName;
+                        MainObject.MainEventList[obj.CurrentAgent.AgentId].Call.ShowScreenPop = false;
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].Call.PhoneNumber = obj.CurrentCall.PhoneNumber;
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].StateAgentId = (StateAgentId)pArgs.NewState.Id;
                         break;
@@ -102,6 +103,7 @@ namespace SalesForceTestRequest.Controllers
                         rcp.Call.Name = obj.CurrentAgent.AgentId;
                         MainObject.MainEventList.Add(obj.CurrentAgent.AgentId, rcp);
                         break;
+                    case AgentStateId.asIDLE:
                     case AgentStateId.asDIALING:
                     case AgentStateId.asDIALING_CONSULTATION:
                     case AgentStateId.asRINGING:
@@ -112,7 +114,6 @@ namespace SalesForceTestRequest.Controllers
                     case AgentStateId.asACTIVE_INTERNAL:
                     case AgentStateId.asNOT_READY:
                     case AgentStateId.asLOGGING_IN:
-                    case AgentStateId.asIDLE:
                     case AgentStateId.asPARKED:
                     case AgentStateId.asCONSULTING:
                     case AgentStateId.asCONFERENCE:
@@ -613,9 +614,17 @@ namespace SalesForceTestRequest.Controllers
 
                         if (agent.DispositionClass != null)
                         {
-
-                            CDisposition pDisp = new CDisposition(agent.DispositionClass.Id, agent.DispositionClass.Description,
-                                agent.DispositionClass.Code, false, false, false);
+                            CDisposition pDisp;
+                            if (mpApp.CurrentCall != null && mpApp.CurrentCall.CurrentState is CStatePreview)
+                            {
+                                pDisp = new CDisposition(agent.DispositionClass.Id, agent.DispositionClass.Description,
+                               agent.DispositionClass.Code, true, false, false);
+                            }
+                            else
+                            {
+                                pDisp = new CDisposition(agent.DispositionClass.Id, agent.DispositionClass.Description,
+                                   agent.DispositionClass.Code, false, false, false);
+                            }
 
                             //TODO: If selected disposition is a callback then have user request a callback
                             //TODO: If selected disposition is an exclusion then have user request an exclusion

@@ -151,6 +151,7 @@ namespace SalesForceTestRequest.ServiceClass
     }
 
     public delegate void CallStateChangeHandler(Object pSender, CCallStateChangeArgs pArgs);
+
     public delegate void UnfocusedCallStateChangeHandler(Object pSender, CUnfocusedCallStateChangeArgs pArgs);
 
 	//Passcode event types
