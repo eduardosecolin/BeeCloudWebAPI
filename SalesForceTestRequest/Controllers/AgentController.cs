@@ -15,6 +15,7 @@ using SalesForceTestRequest.Models.ResourcesStatic;
 using SalesForceTestRequest.Utils;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Web.Http.Description;
 
 namespace SalesForceTestRequest.Controllers
 {
@@ -38,6 +39,7 @@ namespace SalesForceTestRequest.Controllers
 
         #region Received Call Methods
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private void ResetAnswerCallPanel()
         {
             if (mpAnswerCallTimer != null)
@@ -47,6 +49,7 @@ namespace SalesForceTestRequest.Controllers
             mpAnswerCallTimer = null;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public void mpUnloadTimer_Fire(Object state)
         {
             mpUnloadTimer.Dispose();
@@ -54,6 +57,7 @@ namespace SalesForceTestRequest.Controllers
             return;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public void mpAnswerCallTimer_Fire(Object state)
         {
 
@@ -65,6 +69,7 @@ namespace SalesForceTestRequest.Controllers
             }
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public void CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
         {
             try
@@ -83,6 +88,7 @@ namespace SalesForceTestRequest.Controllers
                             MainObject.MainEventList[obj.CurrentAgent.AgentId].Call.Name = obj.CurrentCall.FirstName;
                         }
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].StateAgentId = (StateAgentId)pArgs.NewState.Id;
+                        MainObject.MainList[obj.CurrentAgent.AgentId].DateState = DateTime.Now;
                         break;
                     case AgentStateId.asPREVIEW:
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].Call.CallId = obj.CurrentCall.CallID;
@@ -90,6 +96,7 @@ namespace SalesForceTestRequest.Controllers
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].Call.ShowScreenPop = false;
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].Call.PhoneNumber = obj.CurrentCall.PhoneNumber;
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].StateAgentId = (StateAgentId)pArgs.NewState.Id;
+                        MainObject.MainList[obj.CurrentAgent.AgentId].DateState = DateTime.Now;
                         break;
                     case AgentStateId.asAUTHENTICATED:
                         if (!string.IsNullOrEmpty(MainObject.MainList.FirstOrDefault(x => x.Key == obj.CurrentAgent.AgentId).Key))
@@ -102,7 +109,10 @@ namespace SalesForceTestRequest.Controllers
                         rcp.StateAgentId = (StateAgentId)pArgs.NewState.Id;
                         rcp.Call.Name = obj.CurrentAgent.AgentId;
                         MainObject.MainEventList.Add(obj.CurrentAgent.AgentId, rcp);
+                        MainObject.MainList[obj.CurrentAgent.AgentId].DateState = DateTime.Now;
+                        MainObject.MainList[obj.CurrentAgent.AgentId].Date_Last_Login = DateTime.Now;
                         break;
+                    case AgentStateId.asLOGGING_IN:
                     case AgentStateId.asIDLE:
                     case AgentStateId.asDIALING:
                     case AgentStateId.asDIALING_CONSULTATION:
@@ -113,13 +123,13 @@ namespace SalesForceTestRequest.Controllers
                     case AgentStateId.asLOGGED_OUT:
                     case AgentStateId.asACTIVE_INTERNAL:
                     case AgentStateId.asNOT_READY:
-                    case AgentStateId.asLOGGING_IN:
                     case AgentStateId.asPARKED:
                     case AgentStateId.asCONSULTING:
                     case AgentStateId.asCONFERENCE:
                     case AgentStateId.asCHATTING:
                     case AgentStateId.asINACTIVE:
                         MainObject.MainEventList[obj.CurrentAgent.AgentId].StateAgentId = (StateAgentId)pArgs.NewState.Id;
+                        MainObject.MainList[obj.CurrentAgent.AgentId].DateState = DateTime.Now;
                         break;
                 }
             }
@@ -129,6 +139,7 @@ namespace SalesForceTestRequest.Controllers
             }
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private void MyApp_Screenpop(object pSender, CScreenpopArgs pArgs)
         {
             try
@@ -153,20 +164,76 @@ namespace SalesForceTestRequest.Controllers
         #region GET Methods
 
         // GET: api/Agent/Get
+        /// <summary>
+        /// Retorna um array de valores
+        /// </summary>
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET: api/Agent/Get/5
+        /// <summary>
+        /// Retorna um valor no formato string por Id
+        /// </summary>
         public string Get(int id)
         {
             return "value";
         }
 
-        // GET: api/Agent/GetServicesTransfer
-        [Authentication.BasicAuthentication]
+        // GET: api/Agent/GetInfoAgent
+        /// <summary>
+        /// Retorna os agentes logados
+        /// </summary>
         [HttpGet]
+        [Authentication.BasicAuthentication]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public HttpResponseMessage GetInfoAgent()
+        {
+            try
+            {
+                if(MainObject.MainList.Count > 0)
+                {
+                    AgentManager agentManager = new AgentManager();
+                    foreach (var item in MainObject.MainList)
+                    {
+                        InfoAgent infoAgent = new InfoAgent();
+                        infoAgent.NameAgent = item.Key;
+                        infoAgent.CurrentState = (int)item.Value.CurrentState.Id;
+                        infoAgent.DateState = item.Value.DateState;
+                        infoAgent.DateLastLogin = item.Value.Date_Last_Login;
+                        agentManager.InfoAgents.Add(infoAgent);
+                    }
+
+                    string json = JsonConvert.SerializeObject(agentManager);
+                    if (!string.IsNullOrEmpty(json))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, agentManager);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NoContent, "");
+                    }
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.NoContent, "");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.NoContent, Util.TraslateText(ex.Message));
+            }
+        }
+
+        // GET: api/Agent/GetServicesTransfer
+        /// <summary>
+        /// Retorna os serviços de transferencia
+        /// </summary>
+        [HttpGet]
+        [Authentication.BasicAuthentication]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IEnumerable<string> GetServicesTransfer([FromUri]UserParameters user)
         {
             try
@@ -216,8 +283,12 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // GET: api/Agent/GetServices
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Retorna os serviços de pausa
+        /// </summary>
         [HttpGet]
+        [Authentication.BasicAuthentication]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IEnumerable<string> GetServices([FromUri]UserParameters user)
         {
             try
@@ -266,8 +337,12 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // GET: api/Agent/GetServicesAgent
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Retorna os serviços do agente
+        /// </summary>
         [HttpGet]
+        [Authentication.BasicAuthentication]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IEnumerable<string> GetServicesAgent([FromUri]UserParameters user)
         {
             try
@@ -316,8 +391,12 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // GET: api/Agent/GetDisposition
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Retorna as disposições do agente
+        /// </summary>
         [HttpGet]
+        [Authentication.BasicAuthentication]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IEnumerable<string> GetDisposition([FromUri]UserParameters user)
         {
             try
@@ -372,8 +451,11 @@ namespace SalesForceTestRequest.Controllers
         #region Post Methods
 
         // POST: api/Agent/LoginPost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição de login do agente
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage LoginPost([FromBody]UserParameters user)
         {
             try
@@ -382,6 +464,7 @@ namespace SalesForceTestRequest.Controllers
                 UserParameters u = new UserParameters();
                 u.AgentId = myApp.CurrentAgent.AgentId;
                 string json = JsonConvert.SerializeObject(u);
+                Log.logMessage($"USER LOGIN -> Agent: { u.AgentId } Date login: { DateTime.Now }");
                 return Request.CreateResponse(HttpStatusCode.OK, json.Replace(@"\", ""));
             }
             catch (Exception ex)
@@ -406,8 +489,12 @@ namespace SalesForceTestRequest.Controllers
             }
         }
 
-        // POST: tion.BasicAuthentication]
+        // POST: api/Agent/TakeCallsPost
+        /// <summary>
+        /// Requisição de autenticação do agente
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage TakeCallsPost([FromBody]UserParameters user)
         {
             try
@@ -455,8 +542,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/DialPost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição de chamada manual
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage DialPost([FromBody]AgentParameters agent)
         {
             try
@@ -494,7 +584,6 @@ namespace SalesForceTestRequest.Controllers
                             }
                             else
                             {
-                                Log.logMessage("RESPONSE (ACTION DIAL): PhoneNumber is Empty!");
                                 return Request.CreateResponse(HttpStatusCode.NotFound, "PhoneNumber is Empty");
                             }
                         }
@@ -507,7 +596,6 @@ namespace SalesForceTestRequest.Controllers
                     else
                     {
                         string message = "Not Authentiate or PhoneNumber is Empty!";
-                        Log.logMessage("RESPONSE (ACTION DIAL): " + message);
                         return Request.CreateResponse(HttpStatusCode.NotFound, message);
                     }
                 }
@@ -524,8 +612,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/HangupPost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição de finalização de chamada
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage HangupPost([FromBody]UserParameters user)
         {
             try
@@ -539,7 +630,6 @@ namespace SalesForceTestRequest.Controllers
                 }
                 else
                 {
-                    Log.logMessage("RESPONSE (ACTION HANGUP): " + "Agent Not Found");
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Agent Not Found");
                 }
             }
@@ -551,8 +641,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/HoldPost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição de espera de chamada
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage HoldPost([FromBody]AgentParameters agent)
         {
             try
@@ -597,8 +690,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/NextCallPost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição de tabulação
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage NextCallPost([FromBody]AgentParameters agent)
         {
             try
@@ -672,8 +768,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/LogoutPost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição de logout do agente
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage LogoutPost([FromBody]AgentParameters agent)
         {
             try
@@ -684,9 +783,8 @@ namespace SalesForceTestRequest.Controllers
                     var response = mpApp.Logout(agent.Logout, mpApp);
                     if (response == HttpStatusCode.OK)
                     {
-                        //MainObject.MainList.Remove(mpApp.CurrentAgent.AgentId);
                         MainObject.MainEventList.Remove(agent.User.AgentId);
-                        MainObject.MainList.Remove(agent.User.AgentId);
+                        //MainObject.MainList.Remove(agent.User.AgentId);
                         return Request.CreateResponse(HttpStatusCode.OK, "OK");
                     }
                     else
@@ -707,8 +805,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/UnavailablePost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição para entrar em pausa
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage UnavailablePost([FromBody]AgentParameters agent)
         {
             try
@@ -735,8 +836,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/AvailablePost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição pra sair da pausa
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage AvailablePost([FromBody]UserParameters user)
         {
             try
@@ -761,8 +865,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/TransferPost
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição de transferência de chamada
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage TransferPost([FromBody] AgentParameters agent)
         {
             try
@@ -818,8 +925,11 @@ namespace SalesForceTestRequest.Controllers
         }
 
         // POST: api/Agent/VerifyUpdates
-        [Authentication.BasicAuthentication]
+        /// <summary>
+        /// Requisição para verificação de atualização de status
+        /// </summary>
         [HttpPost]
+        [Authentication.BasicAuthentication]
         public HttpResponseMessage VerifyUpdates([FromBody] UserParameters user)
         {
             try
@@ -848,20 +958,6 @@ namespace SalesForceTestRequest.Controllers
                 Log.logException(ex);
                 return Request.CreateResponse(HttpStatusCode.Accepted, ex.Message);
             }
-        }
-
-        #endregion
-
-        #region PUT/DELETE
-
-        // PUT: api/Login/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Login/5
-        public void Delete(int id)
-        {
         }
 
         #endregion

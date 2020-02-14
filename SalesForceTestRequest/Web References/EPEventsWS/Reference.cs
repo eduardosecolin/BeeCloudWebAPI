@@ -133,7 +133,7 @@ namespace SalesForceTestRequest.EPEventsWS {
                 {
                     value = value.Insert(7, @"10.13.1.208:8180");
                 }
-                Utils.Log.logMessage(value);
+                //Utils.Log.logMessage(value);
                 base.Url = value;
             }
         }

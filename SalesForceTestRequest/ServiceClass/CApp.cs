@@ -185,6 +185,9 @@ namespace SalesForceTestRequest.ServiceClass
     {
         #region Attributes
 
+        public DateTime Date_Last_Login { get; set; }
+        public DateTime DateState { get; set; }
+
         public event StateChangeHandler StateChange;
         public event UnfocusedStateChangeHandler UnfocusedStateChange;
 
@@ -291,7 +294,6 @@ namespace SalesForceTestRequest.ServiceClass
 
             UDInfo pInfo = new UDInfo { listType = (int)AgentInfoType.GET_LOGIN_USER };
 
-            Log.logMessage(sUser);
             User pUser = (User)mpPortal.WSAgent.getInfo(pAgent.AgentArg, pInfo);
 
             if (pUser == null)
@@ -553,7 +555,6 @@ namespace SalesForceTestRequest.ServiceClass
             {
                 if (PhoneNumber == null || PhoneNumber.Trim().Length == 0)
                 {
-                    Log.logMessage("PhoneNumber is Empty!");
                     return 0;
                 }
 
