@@ -412,12 +412,12 @@ namespace SalesForceTestRequest.ServiceClass
         {
             if (this.CurrentCall == null)
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - HangupConsultation. There is no current call."));
+                throw new InvalidOperationException("Invalid request - HangupConsultation. There is no current call.");
             }
 
             if (!(this.CurrentCall is CCallVoice))
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - HangupConsultation. The current call does not support consultations."));
+                throw new InvalidOperationException("Invalid request - HangupConsultation. The current call does not support consultations.");
             }
 
             CCallVoice pCall = (CCallVoice)this.CurrentCall;
@@ -442,7 +442,7 @@ namespace SalesForceTestRequest.ServiceClass
             {
                 if (pCall == null)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - DisposeCall. You must specify the call to dispose."));
+                    throw new InvalidOperationException("Invalid request - DisposeCall. You must specify the call to dispose.");
                 }
 
                 CService pCurrentService = mpAssignedServices.GetByKey(pCall.serviceID);
@@ -453,25 +453,25 @@ namespace SalesForceTestRequest.ServiceClass
                     //Check that a disposition was specified
                     if (pDisposition == null)
                     {
-                        throw new ArgumentNullException("pDisposition", Util.TraslateText("You must specify a disposition to dispose the current call."));
+                        throw new ArgumentNullException("pDisposition", "You must specify a disposition to dispose the current call.");
                     }
 
                     //Check that specified disposition is in list
                     if (!pCurrentService.DispositionPlan.Dispositions.Contains(pDisposition.Id))
                     {
-                        throw new ArgumentException(Util.TraslateText("Invalid Disposition. You must specify a disposition from the disposition plan of the current call's service."));
+                        throw new ArgumentException("Invalid Disposition. You must specify a disposition from the disposition plan of the current call's service.");
                     }
 
                     //If disposition is callback check that callback was requested
                     if (pDisposition.IsCallback & !pCall.CallbackRequested)
                     {
-                        throw new ArgumentException(Util.TraslateText("Invalid Disposition. You must request a callback before disposing the current call with a callback disposition."));
+                        throw new ArgumentException("Invalid Disposition. You must request a callback before disposing the current call with a callback disposition.");
                     }
 
                     //If disposition is exclusion check that exclusion was requested
                     if (pDisposition.IsExclusion && !pCall.ExclusionRequested)
                     {
-                        throw new ArgumentException(Util.TraslateText("Invalid Disposition. You must request an exclusion before disposing the current call with an exclusion disposition."));
+                        throw new ArgumentException("Invalid Disposition. You must request an exclusion before disposing the current call with an exclusion disposition.");
                     }
                 }
                 //If disposition not required, use the default one
@@ -539,7 +539,7 @@ namespace SalesForceTestRequest.ServiceClass
         {
             if (UserId == null || UserId.Trim().Length == 0)
             {
-                throw new ArgumentException(Util.TraslateText("You must specify a UserId"), "UserId");
+                throw new ArgumentException("You must specify a UserId", "UserId");
             }
 
             //Create manual call and save it waiting for dialing event
@@ -616,24 +616,24 @@ namespace SalesForceTestRequest.ServiceClass
         {
             if (this.CurrentCall == null)
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - HoldConsultation. There is no current call."));
+                throw new InvalidOperationException("Invalid request - HoldConsultation. There is no current call.");
             }
 
             if (!(this.CurrentCall is CCallVoice))
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - HoldConsultation. The current call does not support consultations."));
+                throw new InvalidOperationException("Invalid request - HoldConsultation. The current call does not support consultations.");
             }
 
             CCallVoice pCall = (CCallVoice)this.CurrentCall;
 
             if (pCall.thirdPartyCall.CallID == 0)
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - HoldConsultation. There is no current consultation call."));
+                throw new InvalidOperationException("Invalid request - HoldConsultation. There is no current consultation call.");
             }
 
             if (!(pCall.thirdPartyCall.CurrentState is CStateActive))
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - HoldConsultation. Request not allowed in current state of consultation call."));
+                throw new InvalidOperationException("Invalid request - HoldConsultation. Request not allowed in current state of consultation call.");
             }
 
             UDParm pParam = new UDParm { callId = pCall.thirdPartyCall.CallID };
@@ -664,24 +664,24 @@ namespace SalesForceTestRequest.ServiceClass
         {
             if (this.CurrentCall == null)
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - ReleaseHoldOnConsultation. There is no current call."));
+                throw new InvalidOperationException("Invalid request - ReleaseHoldOnConsultation. There is no current call.");
             }
 
             if (!(this.CurrentCall is CCallVoice))
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - ReleaseHoldOnConsultation. The current call does not support consultations."));
+                throw new InvalidOperationException("Invalid request - ReleaseHoldOnConsultation. The current call does not support consultations.");
             }
 
             CCallVoice pCall = (CCallVoice)this.CurrentCall;
 
             if (pCall.thirdPartyCall.CallID == 0)
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - ReleaseHoldOnConsultation. There is no current consultation call."));
+                throw new InvalidOperationException("Invalid request - ReleaseHoldOnConsultation. There is no current consultation call.");
             }
 
             if (!(pCall.thirdPartyCall.CurrentState is CStateHeld))
             {
-                throw new InvalidOperationException(Util.TraslateText("Invalid request - ReleaseHoldOnConsultation. Request not allowed in current state of consultation call."));
+                throw new InvalidOperationException("Invalid request - ReleaseHoldOnConsultation. Request not allowed in current state of consultation call.");
             }
 
             UDParm pParam = new UDParm { callId = pCall.thirdPartyCall.CallID };
@@ -694,7 +694,7 @@ namespace SalesForceTestRequest.ServiceClass
             {
                 if (pNotReadyReason == null)
                 {
-                    throw new ArgumentNullException("pNotReadyReason", Util.TraslateText("You must specify a NotReady Reason"));
+                    throw new ArgumentNullException("pNotReadyReason", "You must specify a NotReady Reason");
                 }
 
                 UDReason oReason = new UDReason { reasonId = pNotReadyReason.Id, toParkState = Park };
@@ -943,22 +943,22 @@ namespace SalesForceTestRequest.ServiceClass
             {
                 if (user == null)
                 {
-                    throw new ArgumentException(Util.TraslateText("You must specify a user."), "user");
+                    throw new ArgumentException("You must specify a user.", "user");
                 }
 
                 if (this.CurrentCall == null)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. There is no current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. There is no current call.");
                 }
 
                 if (this.CurrentCall.CallID == 0)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. There is no current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. There is no current call.");
                 }
 
                 if (!this.CurrentCall.CurrentState.EnableTransfer)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. Request not allowed in current state of current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. Request not allowed in current state of current call.");
                 }
 
                 //[Blind] Transfer to User is actually requested via the consult method with blindXferFlag=true.
@@ -1110,22 +1110,22 @@ namespace SalesForceTestRequest.ServiceClass
             {
                 if (service == null)
                 {
-                    throw new ArgumentException(Util.TraslateText("You must specify a service."), "service");
+                    throw new ArgumentException("You must specify a service.", "service");
                 }
 
                 if (this.CurrentCall == null)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. There is no current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. There is no current call.");
                 }
 
                 if (this.CurrentCall.CallID == 0)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. There is no current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. There is no current call.");
                 }
 
                 if (!this.CurrentCall.CurrentState.EnableTransfer)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. Request not allowed in current state of current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. Request not allowed in current state of current call.");
                 }
 
                 UDTransfer oParams = new UDTransfer
@@ -1151,30 +1151,30 @@ namespace SalesForceTestRequest.ServiceClass
             {
                 if (this.CurrentCall == null)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. There is no current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. There is no current call.");
                 }
 
                 if (this.CurrentCall.CallID == 0)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. There is no current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. There is no current call.");
                 }
 
                 if (!(this.CurrentCall is CCallVoice))
                 {
                     //This error message makes more sense for this request than "...current call does not support consultations..."
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. There is no current consultation call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. There is no current consultation call.");
                 }
 
                 CCallVoice pCall = (CCallVoice)this.CurrentCall;
 
                 if (pCall.thirdPartyCall.CallID == 0)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. There is no current consultation call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. There is no current consultation call.");
                 }
 
                 if (!this.CurrentCall.CurrentState.EnableTransfer)
                 {
-                    throw new InvalidOperationException(Util.TraslateText("Invalid request - Transfer. Request not allowed in current state of current call."));
+                    throw new InvalidOperationException("Invalid request - Transfer. Request not allowed in current state of current call.");
                 }
                 UDTransfer oParams = new UDTransfer
                 {

@@ -26,13 +26,11 @@ namespace SalesForceTestRequest.Controllers
         private CApp myApp;
         private Timer mpAnswerCallTimer;
         private Timer mpUnloadTimer;
-        private CCall mpCall;
         private int miAnswerCallTickCount;
 
         public AgentController()
         {
             myApp = new CApp();
-            mpCall = new CCall();
             myApp.Screenpop += MyApp_Screenpop;
             myApp.StateChange += CApp_StateChange;
         }
@@ -223,7 +221,7 @@ namespace SalesForceTestRequest.Controllers
             catch (Exception ex)
             {
 
-                return Request.CreateResponse(HttpStatusCode.NoContent, Util.TraslateText(ex.Message));
+                return Request.CreateResponse(HttpStatusCode.NoContent, ex.Message);
             }
         }
 
@@ -461,11 +459,11 @@ namespace SalesForceTestRequest.Controllers
             try
             {
                 myApp.Login(user.UserId, user.Password, user.Station, user.Portal);
-                UserParameters u = new UserParameters();
-                u.AgentId = myApp.CurrentAgent.AgentId;
-                string json = JsonConvert.SerializeObject(u);
-                Log.logMessage($"USER LOGIN -> Agent: { u.AgentId } Date login: { DateTime.Now }");
-                return Request.CreateResponse(HttpStatusCode.OK, json.Replace(@"\", ""));
+                UserParameters userParameter = new UserParameters();
+                userParameter.AgentId = myApp.CurrentAgent.AgentId;
+                string json = JsonConvert.SerializeObject(userParameter);
+                Log.logMessage($"USER LOGIN -> Agent: { userParameter.AgentId } Date login: { DateTime.Now }");
+                return Request.CreateResponse(HttpStatusCode.OK, userParameter);
             }
             catch (Exception ex)
             {
@@ -507,9 +505,9 @@ namespace SalesForceTestRequest.Controllers
                         mpApp.TakeCalls();
                         mpApp.EnableKeepAlives = true;
                         string json = string.Empty;
+                        List<DialServiceParameters> list = new List<DialServiceParameters>();
                         if (mpApp.CurrentCall == null)
                         {
-                            List<DialServiceParameters> list = new List<DialServiceParameters>();
                             foreach (CService item in mpApp.AssignedServices)
                             {
                                 DialServiceParameters dsp = new DialServiceParameters();
@@ -522,7 +520,7 @@ namespace SalesForceTestRequest.Controllers
                                 json = JsonConvert.SerializeObject(list);
                             }
                         }
-                        return Request.CreateResponse(HttpStatusCode.OK, json.Replace(@"\", ""));
+                        return Request.CreateResponse(HttpStatusCode.OK, list);
                     }
                     else
                     {
@@ -940,7 +938,7 @@ namespace SalesForceTestRequest.Controllers
                     if (obj != null)
                     {
                         string json = JsonConvert.SerializeObject(obj);
-                        var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                        var response = Request.CreateResponse(HttpStatusCode.OK, obj);
                         return response;
                     }
                     else
@@ -955,7 +953,7 @@ namespace SalesForceTestRequest.Controllers
             }
             catch (Exception ex)
             {
-                Log.logException(ex);
+                Log.logException(ex, user.AgentId);
                 return Request.CreateResponse(HttpStatusCode.Accepted, ex.Message);
             }
         }
