@@ -12,7 +12,7 @@ namespace SalesForceTestRequest
         public static void Register(HttpConfiguration config)
         {
             // Serviços e configuração da API da Web
-
+            Utils.Log.logMessage("Application Initialized.....");
             // Rotas da API da Web
             config.MapHttpAttributeRoutes();
 

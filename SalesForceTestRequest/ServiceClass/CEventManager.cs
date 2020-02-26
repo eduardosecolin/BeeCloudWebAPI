@@ -1909,18 +1909,6 @@ namespace SalesForceTestRequest.ServiceClass
                 throw ex;
             }
         }
-
-        public static UserAuthentication GetInfoUserAuth()
-        {
-            string path = HttpRuntime.AppDomainAppPath + @"Authentication\UserConfigValidate.json";
-            string json = string.Empty;
-            using (StreamReader s_reader = new StreamReader(path))
-            {
-                json = s_reader.ReadToEnd();
-            }
-            var userAuthentication = Newtonsoft.Json.JsonConvert.DeserializeObject<UserAuthentication>(json);
-            return userAuthentication;
-        }
     }
 
 	public class CState
