@@ -1,0 +1,159 @@
+03/03/2020 09:53:53
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+03/03/2020 09:59:10
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass18_0.<TakeCallsPost>b__0(KeyValuePair`2 x) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 500
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.TakeCallsPost(UserParameters user) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 500
+03/03/2020 09:59:24
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass18_0.<TakeCallsPost>b__0(KeyValuePair`2 x) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 500
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.TakeCallsPost(UserParameters user) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 500
+03/03/2020 09:59:29
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 129
+03/03/2020 09:59:36
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass18_0.<TakeCallsPost>b__0(KeyValuePair`2 x) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 500
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.TakeCallsPost(UserParameters user) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 500
+03/03/2020 09:59:48
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 129
+03/03/2020 10:00:35
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass18_0.<TakeCallsPost>b__0(KeyValuePair`2 x)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.TakeCallsPost(UserParameters user)
+03/03/2020 10:00:42
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+03/03/2020 10:02:18
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass20_0.<HangupPost>b__0(KeyValuePair`2 x) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 622
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.HangupPost(UserParameters user) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 622
+03/03/2020 10:04:37
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+03/03/2020 10:17:18
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass20_0.<HangupPost>b__0(KeyValuePair`2 x)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.HangupPost(UserParameters user)
+03/03/2020 10:18:12
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+03/03/2020 10:18:30
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+03/03/2020 10:19:45
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass20_0.<HangupPost>b__0(KeyValuePair`2 x) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 622
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.HangupPost(UserParameters user) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 622
+03/03/2020 10:20:00
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass20_0.<HangupPost>b__0(KeyValuePair`2 x) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 622
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.HangupPost(UserParameters user) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 622
+03/03/2020 10:20:57
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.<>c__DisplayClass20_0.<HangupPost>b__0(KeyValuePair`2 x)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SalesForceTestRequest.Controllers.AgentController.HangupPost(UserParameters user)
+03/03/2020 10:22:54
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+03/03/2020 10:23:04
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+03/03/2020 10:29:54
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+03/03/2020 10:43:11
+Object reference not set to an instance of an object.
+   at SalesForceTestRequest.Controllers.AgentController.HangupPost(UserParameters user)
+03/03/2020 10:48:52
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+03/03/2020 03:56:59
+Session already exists, send a panic logoff/ unregister to clean it up, then retry.
+   at SalesForceTestRequest.ServiceClass.CPortal.RegisterEx(UDAgent pAgent, UDAgentInfo pAgentInfo, UDProperty[] properties) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\ServiceClass\CPortal.cs:line 179
+   at SalesForceTestRequest.ServiceClass.CApp.TakeCalls() in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\ServiceClass\CApp.cs:line 522
+03/03/2020 03:56:59
+Session already exists, send a panic logoff/ unregister to clean it up, then retry.
+   at SalesForceTestRequest.ServiceClass.CApp.TakeCalls() in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\ServiceClass\CApp.cs:line 528
+   at SalesForceTestRequest.Controllers.AgentController.TakeCallsPost(UserParameters user) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 505
+03/03/2020 03:57:24
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs) in C:\Users\salesforce\Downloads\Projects\SEMI_OFFICIAL\SalesForceTestRequest\SalesForceTestRequest\Controllers\AgentController.cs:line 129
+03/03/2020 05:54:38
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+04/03/2020 10:44:40
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 10:45:59
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 10:51:21
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 10:52:25
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 10:52:46
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 11:06:07
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 11:07:22
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 11:07:25
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)
+04/03/2020 11:10:44
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 11:16:22
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at SalesForceTestRequest.ServiceClass.CApp.DisposeCall(CCall pCall, CDisposition pDisposition)
+   at SalesForceTestRequest.Controllers.AgentController.NextCallPost(AgentParameters agent)
+04/03/2020 11:16:30
+The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at SalesForceTestRequest.Controllers.AgentController.CApp_StateChange(Object pSender, CStateChangeArgs pArgs)

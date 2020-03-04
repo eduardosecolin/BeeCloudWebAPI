@@ -143,7 +143,7 @@ namespace SalesForceTestRequest.Controllers
             try
             {
                 CApp mpApp = (CApp)pSender;
-                if (MainObject.MainEventList.FirstOrDefault(x => x.Key == mpApp.CurrentAgent.AgentId).Key != string.Empty)
+                if (MainObject.MainEventList.ContainsKey(mpApp.CurrentAgent.AgentId))
                 {
                     MainObject.MainEventList[mpApp.CurrentAgent.AgentId].Call.ShowScreenPop = true;
 
@@ -237,7 +237,7 @@ namespace SalesForceTestRequest.Controllers
             try
             {
                 List<TransferServicesParameters> listTransfer = new List<TransferServicesParameters>();
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == user.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(user.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[user.AgentId];
 
@@ -291,7 +291,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == user.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(user.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[user.AgentId];
 
@@ -345,7 +345,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == user.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(user.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[user.AgentId];
 
@@ -399,7 +399,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == user.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(user.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[user.AgentId];
 
@@ -497,7 +497,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == user.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(user.AgentId))
                 {
                     var mpApp = MainObject.MainList[user.AgentId];
                     if (mpApp.CurrentState is CStateAuthenticated)
@@ -554,7 +554,7 @@ namespace SalesForceTestRequest.Controllers
                 HttpResponseMessage response = null;
                 CApp mpApp;
 
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == agent.User.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(agent.User.AgentId))
                 {
                     mpApp = MainObject.MainList[agent.User.AgentId];
 
@@ -619,7 +619,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == user.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(user.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[user.AgentId];
 
@@ -648,7 +648,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == agent.User.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(agent.User.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[agent.User.AgentId];
 
@@ -697,14 +697,12 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == agent.User.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(agent.User.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[agent.User.AgentId];
 
                     if (mpApp.CurrentService.RequireDisposition)
                     {
-                        //TODO: If not allowed to schedule a callback, remove callback dispositions from selection list
-                        //TODO: If not allowed to set an exclusion, remove exclusion dispositions from selection list
 
                         if (agent.DispositionClass != null)
                         {
@@ -720,13 +718,31 @@ namespace SalesForceTestRequest.Controllers
                                    agent.DispositionClass.Code, false, false, false);
                             }
 
-                            //TODO: If selected disposition is a callback then have user request a callback
-                            //TODO: If selected disposition is an exclusion then have user request an exclusion
-
                             try
                             {
-                                mpApp.DisposeCall(mpApp.CurrentCall, pDisp);
-                                return Request.CreateResponse(HttpStatusCode.OK, "OK");
+                                if (agent.DispositionClass.Id == 1005 || agent.DispositionClass.Id == 1006)
+                                {
+                                    string nameCustomer = mpApp.CurrentCall.FirstName;
+                                    string phonenumber = mpApp.CurrentCall.PhoneNumber;
+
+                                    mpApp.ScheduleCallback(mpApp.CurrentCall, pDisp, agent.DispositionClass.Date);
+                                    mpApp.DisposeCall(mpApp.CurrentCall, pDisp);
+
+                                    ScheduleParameters scheduleparameters = new ScheduleParameters();
+                                    scheduleparameters.Id_Disposition = pDisp.Id;
+                                    scheduleparameters.Description_Disposition = pDisp.Description;
+                                    scheduleparameters.Name_Customer = nameCustomer;
+                                    scheduleparameters.PhoneNumber = phonenumber;
+                                    scheduleparameters.AgentId = agent.User.AgentId;
+                                    scheduleparameters.Date_Schedule = agent.DispositionClass.Date;
+
+                                    return Request.CreateResponse(HttpStatusCode.OK, scheduleparameters);
+                                }
+                                else
+                                {
+                                    mpApp.DisposeCall(mpApp.CurrentCall, pDisp);
+                                    return Request.CreateResponse(HttpStatusCode.OK, "OK");
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -775,7 +791,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == agent.User.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(agent.User.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[agent.User.AgentId];
                     var response = mpApp.Logout(agent.Logout, mpApp);
@@ -812,7 +828,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == agent.User.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(agent.User.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[agent.User.AgentId];
                     CNotReadyReason reason = new CNotReadyReason(agent.Unavailable.Id, agent.Unavailable.Description);
@@ -843,7 +859,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == user.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(user.AgentId))
                 {
                     CApp mpApp = MainObject.MainList[user.AgentId];
 
@@ -872,7 +888,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainList.FirstOrDefault(x => x.Key == agent.User.AgentId).Key != string.Empty)
+                if (MainObject.MainList.ContainsKey(agent.User.AgentId))
                 {
                     object obj = new CSimpleService(agent.Transfer.ServiceId, agent.Transfer.ServiceName, agent.Transfer.ServiceType);
                     CApp mpApp = MainObject.MainList[agent.User.AgentId];
@@ -932,7 +948,7 @@ namespace SalesForceTestRequest.Controllers
         {
             try
             {
-                if (MainObject.MainEventList.FirstOrDefault(x => x.Key == user.AgentId).Key != string.Empty)
+                if (MainObject.MainEventList.ContainsKey(user.AgentId))
                 {
                     var obj = MainObject.MainEventList[user.AgentId];
                     if (obj != null)

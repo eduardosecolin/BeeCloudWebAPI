@@ -20,7 +20,7 @@ namespace SalesForceTestRequest.Utils
 
             //Configurando diretorio atual para emissão de logs         
             string oldPath = Directory.GetCurrentDirectory();
-            string rawPath = @"C:\Users\salesforce\Desktop\Deploy\Logs\";
+            string rawPath = HttpRuntime.AppDomainAppPath + @"\Logs\";
             if (!Directory.Exists(rawPath)) Directory.CreateDirectory(rawPath);
             Directory.SetCurrentDirectory(rawPath);
 
@@ -47,7 +47,7 @@ namespace SalesForceTestRequest.Utils
 
             //Configurando diretorio atual para emissão de logs         
             string oldPath = Directory.GetCurrentDirectory();
-            string rawPath = @"C:\Users\salesforce\Desktop\Deploy\Logs\";
+            string rawPath = HttpRuntime.AppDomainAppPath + @"\Logs\";
             if (!Directory.Exists(rawPath)) Directory.CreateDirectory(rawPath);
             Directory.SetCurrentDirectory(rawPath);
 
@@ -78,7 +78,7 @@ namespace SalesForceTestRequest.Utils
 
             //Configurando diretorio atual para emissão de mensagem  
             string oldPath = Directory.GetCurrentDirectory();
-            string rawPath = @"C:\Users\salesforce\Desktop\Deploy\Logs\";
+            string rawPath = HttpRuntime.AppDomainAppPath + @"\Logs\";
             if (!Directory.Exists(rawPath)) Directory.CreateDirectory(rawPath);
             Directory.SetCurrentDirectory(rawPath);
 

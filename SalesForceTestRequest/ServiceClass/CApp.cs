@@ -462,12 +462,6 @@ namespace SalesForceTestRequest.ServiceClass
                         throw new ArgumentException("Invalid Disposition. You must specify a disposition from the disposition plan of the current call's service.");
                     }
 
-                    //If disposition is callback check that callback was requested
-                    if (pDisposition.IsCallback & !pCall.CallbackRequested)
-                    {
-                        throw new ArgumentException("Invalid Disposition. You must request a callback before disposing the current call with a callback disposition.");
-                    }
-
                     //If disposition is exclusion check that exclusion was requested
                     if (pDisposition.IsExclusion && !pCall.ExclusionRequested)
                     {
@@ -504,8 +498,11 @@ namespace SalesForceTestRequest.ServiceClass
 
                 mpPortal.WSAgent.callOutcome(mpCurrentAgent.AgentArg, pDisp);
 
-                //If call was successfully disposed then remove it from list
-                mpCallManager.RemoveByKey(pCall.CallID);
+                if (!(pCall.CurrentState is CStatePreview))
+                {
+                    //If call was successfully disposed then remove it from list
+                    mpCallManager.RemoveByKey(pCall.CallID);
+                }
             }
             catch(Exception ex)
             {
@@ -1272,6 +1269,44 @@ namespace SalesForceTestRequest.ServiceClass
         public void RejectCall()
         {
             RejectCall(null);
+        }
+
+        /// <summary>
+        /// Schedule current call
+        /// </summary>
+        public void ScheduleCallback(CCall aodCall, CDisposition pDisp, DateTime dateSchedule)
+        {
+            try
+            {
+                if (aodCall != null)
+                {
+                    int DialMode = 1;
+                    if(aodCall is CCallAOD newCall)
+                    {
+                        DialMode = newCall.CallbackDialMode;
+                    }
+
+                    UDCallback callback = new UDCallback
+                    {
+                        aodServiceID = aodCall.ServiceID,
+                        callbackName = pDisp.Description,
+                        callID = aodCall.CallID,
+                        dateTime = dateSchedule.AddMinutes(5).ToString("MM/dd/yyyy HH:mm:ss"),
+                        snoozeTimeInMins = 0,
+                        phoneNumber = aodCall.PhoneNumber,
+                        memo = pDisp.Description,
+                        dialMode = DialMode,
+                        returnToSameAgent = 1
+                    };
+
+                    mpPortal.WSAgent.scheduleCallback(mpCurrentAgent.AgentArg, callback);
+                    Log.logMessage("Disposition: " + pDisp.Description + " | Schedule Date: " + dateSchedule.AddMinutes(5).ToString("MM/dd/yyyy HH:mm:ss"));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public CAgents GetAgents()

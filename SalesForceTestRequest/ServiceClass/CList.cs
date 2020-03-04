@@ -123,6 +123,9 @@ namespace SalesForceTestRequest.ServiceClass
 		        throw (new ArgumentNullException("key", "Null keys are not allowed"));
 		    }
 
+			//created by eduardo and lucas 04/03/2020
+			if (pKeys.Count == 0 || pValues.Count == 0) return;
+
             int index = pKeys.IndexOf(key);
 			pKeys.RemoveAt(index);
 			pValues.RemoveAt(index);

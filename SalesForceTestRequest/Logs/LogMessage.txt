@@ -1,0 +1,60 @@
+03/03/2020 09:46:02 Application Initialized.....
+03/03/2020 09:49:38 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 09:49:38
+03/03/2020 09:58:22 Application Initialized.....
+03/03/2020 09:59:06 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 09:59:06
+03/03/2020 09:59:33 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 09:59:33
+03/03/2020 10:00:10 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 10:00:10
+03/03/2020 10:01:03 Application Initialized.....
+03/03/2020 10:01:16 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 10:01:16
+03/03/2020 10:16:17 Application Initialized.....
+03/03/2020 10:16:36 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 10:16:36
+03/03/2020 10:17:45 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 10:25:00
+03/03/2020 10:19:01 Application Initialized.....
+03/03/2020 10:19:14 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 10:19:14
+03/03/2020 10:21:59 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 10:25:00
+03/03/2020 10:27:25 Application Initialized.....
+03/03/2020 10:27:47 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 10:27:47
+03/03/2020 10:29:03 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 10:25:00
+03/03/2020 10:42:10 Application Initialized.....
+03/03/2020 10:42:25 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 10:42:25
+03/03/2020 10:43:42 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 10:52:00
+03/03/2020 10:46:41 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 10:52:00
+03/03/2020 10:47:15 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 10:52:00
+03/03/2020 10:48:09 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 10:52:00
+03/03/2020 03:56:37 Application Initialized.....
+03/03/2020 03:56:47 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 15:56:47
+03/03/2020 03:57:32 USER LOGIN -> Agent: salesforce Date login: 03/03/2020 15:57:32
+03/03/2020 05:30:19 Application Initialized.....
+03/03/2020 05:30:36 USER LOGIN -> Agent: nicollasfeitosa Date login: 03/03/2020 17:30:36
+03/03/2020 05:33:25 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 15:37:00
+03/03/2020 05:35:54 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/03/2020 18:39:43
+03/03/2020 05:37:32 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/03/2020 17:43:00
+03/03/2020 05:42:10 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/03/2020 17:48:00
+03/03/2020 05:44:22 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/03/2020 18:50:00
+03/03/2020 05:46:35 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/03/2020 18:52:00
+03/03/2020 05:48:19 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/03/2020 18:54:00
+03/03/2020 05:53:46 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/03/2020 18:58:05
+04/03/2020 09:58:25 Application Initialized.....
+04/03/2020 09:59:44 USER LOGIN -> Agent: salesforce Date login: 04/03/2020 09:59:44
+04/03/2020 10:00:57 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 10:07:00
+04/03/2020 10:01:26 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 10:07:00
+04/03/2020 10:02:10 Disposition: AGENDAMENTO PUBLICO_F | Schedule Date: 03/04/2020 11:07:07
+04/03/2020 10:07:12 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 10:15:00
+04/03/2020 10:22:23 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 11:27:15
+04/03/2020 10:24:56 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 10:35:00
+04/03/2020 10:33:19 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 10:38:00
+04/03/2020 10:34:25 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 10:38:00
+04/03/2020 10:36:27 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 11:40:01
+04/03/2020 10:38:12 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 11:40:01
+04/03/2020 10:40:50 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 10:50:00
+04/03/2020 10:49:57 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 11:54:44
+04/03/2020 11:00:33 Application Initialized.....
+04/03/2020 11:04:36 USER LOGIN -> Agent: salesforce Date login: 04/03/2020 11:04:36
+04/03/2020 11:06:45 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 12:11:35
+04/03/2020 11:08:13 Application Initialized.....
+04/03/2020 11:09:04 USER LOGIN -> Agent: salesforce Date login: 04/03/2020 11:09:04
+04/03/2020 11:20:38 Application Initialized.....
+04/03/2020 11:21:03 USER LOGIN -> Agent: salesforce Date login: 04/03/2020 11:21:03
+04/03/2020 11:27:01 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 11:32:00
+04/03/2020 11:27:40 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 11:33:00
+04/03/2020 11:31:57 Disposition: AGENDAMENTO PRIVADO_F | Schedule Date: 03/04/2020 12:36:46

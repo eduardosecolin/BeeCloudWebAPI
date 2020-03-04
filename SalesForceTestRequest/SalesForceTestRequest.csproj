@@ -185,6 +185,7 @@
     <Compile Include="Models\GenericObjectParameters.cs" />
     <Compile Include="Models\ResourcesStatic\AgentManager.cs" />
     <Compile Include="Models\ResourcesStatic\MainObject.cs" />
+    <Compile Include="Models\ScheduleParameters.cs" />
     <Compile Include="Models\TransferServicesParameters.cs" />
     <Compile Include="Models\UnavailableParameters.cs" />
     <Compile Include="Models\UserAuthentication.cs" />
